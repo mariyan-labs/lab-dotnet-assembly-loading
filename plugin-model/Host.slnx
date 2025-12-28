@@ -1,0 +1,31 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/plugins/" />
+  <Folder Name="/plugins/PluginA/" />
+  <Folder Name="/plugins/PluginA/v1/">
+    <Project Path="plugins/PluginA/v1/PluginA/PluginA.csproj" />
+  </Folder>
+  <Folder Name="/plugins/PluginA/v2/">
+    <Project Path="plugins/PluginA/v2/PluginA/PluginA.csproj" />
+    <Project Path="plugins/PluginA/v2/Serialization/Serialization.csproj" />
+  </Folder>
+  <Folder Name="/shared/">
+    <Project Path="shared/Host.Contracts/Host.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/hosts/">
+    <Project Path="hosts/Host.Console.Core8/Host.Console.Core8.csproj" />
+    <Project Path="hosts/Host.Console.Framework48/Host.Console.Framework48.csproj" />
+  </Folder>
+  <Folder Name="/third-parties/" />
+  <Folder Name="/third-parties/Geometry/" />
+  <Folder Name="/third-parties/Geometry/v1/">
+    <Project Path="third-parties/Geometry/v1/Geometry/Geometry.csproj" />
+  </Folder>
+  <Folder Name="/third-parties/Geometry/v2/">
+    <Project Path="third-parties/Geometry/v2/Geometry/Geometry.csproj" />
+  </Folder>
+</Solution>
