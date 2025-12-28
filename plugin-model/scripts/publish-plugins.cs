@@ -16,7 +16,7 @@ using static IOHelpers;
 using static Rendering;
 using static Pipelines;
 
-WorkspacePaths.ResolveFromCurrentDirectory()
+Workspace.ResolveFromCurrentDirectory()
     .Then(RefreshOutputDirectory)
     .Then(FindPlugins)
     .Then(PublishPlugins)
@@ -25,11 +25,11 @@ WorkspacePaths.ResolveFromCurrentDirectory()
 
 static class Pipelines
 {
-    public record RefreshOutput(WorkspacePaths Workspace, PartialResult<DeletedDirectory> RefreshedDirectories);
-    public record FindPluginsOutput(PartialResult<Plugin> Plugins, WorkspacePaths Workspace,PartialResult<DeletedDirectory> RefreshedDirectories);
+    public record RefreshOutput(Workspace Workspace, PartialResult<DeletedDirectory> RefreshedDirectories);
+    public record FindPluginsOutput(PartialResult<Plugin> Plugins, Workspace Workspace,PartialResult<DeletedDirectory> RefreshedDirectories);
     
     public static ErrorOr<RefreshOutput> RefreshOutputDirectory(
-        WorkspacePaths workspace
+        Workspace workspace
     )
     {
         return workspace.RefreshOutputDirectory()
@@ -99,11 +99,11 @@ static class Rendering
     }
 }
 
-static class WorkspacePathsExtensions
+static class Workspaces
 {
-    extension(WorkspacePaths workspace)
+    extension(Workspace workspace)
     {
-        public static ErrorOr<WorkspacePaths> ResolveFromCurrentDirectory()
+        public static ErrorOr<Workspace> ResolveFromCurrentDirectory()
         {
             var rootDirectory = Directory.GetParent(Directory.GetCurrentDirectory())?.FullName;
 
@@ -126,7 +126,7 @@ static class WorkspacePathsExtensions
                 return Error.Fail("Plugins directory does not exist");
            }
 
-           return new WorkspacePaths(rootDirectory, outputDirectory, pluginsDirectory);
+           return new Workspace(rootDirectory, outputDirectory, pluginsDirectory);
         }
     
 
@@ -211,7 +211,7 @@ static class Plugins
     extension(Plugin)
     {
         public static ErrorOr<PartialResult<Plugin>> FromWorkspace(
-            WorkspacePaths workspace
+            Workspace workspace
         )
         {
             try
@@ -310,7 +310,7 @@ static class PublishedPlugins
     {
         public static ErrorOr<PartialResult<PublishedPlugin>> Run(
             IEnumerable<Plugin> plugins,
-            WorkspacePaths workspace
+            Workspace workspace
         )
         {
             try
@@ -332,7 +332,7 @@ static class PublishedPlugins
 
         public static ErrorOr<PublishedPlugin> Run(
             Plugin plugin,
-            WorkspacePaths workspace
+            Workspace workspace
         )
         {
             var pluginsRootDirectory = workspace.Output;
@@ -437,7 +437,7 @@ static class Outputs
 }
 static class Types
 {
-    public record WorkspacePaths(
+    public record Workspace(
         string Root,
         string Output,
         string Plugins
